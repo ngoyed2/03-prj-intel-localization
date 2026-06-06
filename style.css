@@ -200,3 +200,339 @@ section p {
   letter-spacing: 0.02em;
 }
 
+/* Accessibility Improvements */
+
+/* Skip-to-main link for keyboard users */
+.skip-to-main {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #0f69ff;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 0 0 4px 0;
+}
+
+.skip-to-main:focus {
+  top: 0;
+  outline: 3px solid #fbbf24;
+}
+
+/* Visually hidden text (for screen readers) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Improved focus indicators for better keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid #0f69ff;
+  outline-offset: 2px;
+}
+
+/* Footer link styling with better contrast */
+.footer-link {
+  color: #e5e7eb;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Form label styling */
+.form-label {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 6px;
+}
+
+/* Required field indicator */
+.text-danger {
+  color: #dc2626;
+}
+
+/* Form help text for better readability */
+.form-text {
+  display: block;
+  margin-top: 4px;
+}
+
+/* Ensure form controls have proper spacing and focus */
+.form-control:focus,
+.form-check-input:focus {
+  border-color: #0f69ff;
+  box-shadow: 0 0 0 0.2rem rgba(15, 105, 255, 0.25);
+}
+
+/* Button hover and focus states */
+.btn-primary {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: #0b55e1;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* Improved line-height for better readability */
+body {
+  line-height: 1.6;
+}
+
+/* Ensure sufficient color contrast in timeline */
+.timeline-card p {
+  color: white;
+}
+
+.timeline-card:hover p {
+  color: white;
+  background: rgba(11, 53, 132, 0.96);
+}
+
+/* ========================================
+   RTL (Right-to-Left) Language Support
+   ======================================== */
+
+/* RTL Mode: Main text and general alignment */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] body,
+[dir="rtl"] p,
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6,
+[dir="rtl"] li {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL: Hero section */
+[dir="rtl"] .hero h1 {
+  text-align: center;
+}
+
+[dir="rtl"] .hero-text {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* RTL: Timeline row - reverse card order */
+[dir="rtl"] .timeline-row {
+  flex-direction: row-reverse;
+}
+
+/* RTL: Flexbox containers */
+[dir="rtl"] .row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .hero-content {
+  text-align: center;
+}
+
+/* RTL: List items */
+[dir="rtl"] ul,
+[dir="rtl"] ol {
+  padding-left: 0;
+  padding-right: 2rem;
+  text-align: right;
+}
+
+/* RTL: Form elements */
+[dir="rtl"] .form-label {
+  text-align: right;
+}
+
+[dir="rtl"] .form-control {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .form-check {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+[dir="rtl"] .form-check-label {
+  text-align: right;
+}
+
+[dir="rtl"] .form-check-input {
+  margin-left: 0;
+  margin-right: -1.5rem;
+}
+
+/* RTL: Buttons and links */
+[dir="rtl"] .btn {
+  text-align: center;
+}
+
+[dir="rtl"] .footer-link {
+  text-align: right;
+}
+
+/* RTL: Hero button alignment */
+[dir="rtl"] .hero-button {
+  display: inline-block;
+}
+
+/* RTL: Footer layout */
+[dir="rtl"] .footer-link {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+[dir="rtl"] .text-end {
+  text-align: left !important;
+}
+
+/* RTL: Navigation and spacing adjustments */
+[dir="rtl"] .container {
+  direction: rtl;
+}
+
+[dir="rtl"] .text-center {
+  text-align: center;
+}
+
+/* RTL: Bootstrap helpers and alignment shortcuts */
+[dir="rtl"] .text-start {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-end {
+  text-align: left !important;
+}
+
+[dir="rtl"] .float-start {
+  float: right !important;
+}
+
+[dir="rtl"] .float-end {
+  float: left !important;
+}
+
+[dir="rtl"] .me-auto {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+[dir="rtl"] .ms-auto {
+  margin-right: auto !important;
+  margin-left: 0 !important;
+}
+
+/* RTL: Bootstrap grid column reversal for proper layout */
+[dir="rtl"] .col-12,
+[dir="rtl"] .col-md-6,
+[dir="rtl"] .col-md-4,
+[dir="rtl"] .col-lg-4 {
+  text-align: right;
+}
+
+/* RTL: Card elements */
+[dir="rtl"] .card {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .card-body {
+  text-align: right;
+}
+
+[dir="rtl"] .card-title {
+  text-align: right;
+}
+
+[dir="rtl"] .card-text {
+  text-align: right;
+  direction: rtl;
+}
+
+/* RTL: Timeline cards */
+[dir="rtl"] .timeline-card {
+  text-align: center;
+}
+
+[dir="rtl"] .timeline-card h3 {
+  text-align: center;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+[dir="rtl"] .timeline-card p {
+  text-align: center;
+  direction: rtl;
+}
+
+/* RTL: Special text (like numbers and years - keep LTR) */
+[dir="rtl"] h3,
+[dir="rtl"] .timeline-card h3 {
+  unicode-bidi: bidi-override;
+}
+
+/* RTL: Form text and help messages */
+[dir="rtl"] .form-text {
+  text-align: right;
+  direction: rtl;
+}
+
+/* RTL: Fieldset and legend */
+[dir="rtl"] fieldset {
+  text-align: right;
+  border-right: 1px solid #dee2e6;
+  border-left: 0;
+  padding-right: 1rem;
+  padding-left: 0;
+}
+
+[dir="rtl"] legend {
+  text-align: right;
+}
+
+/* RTL: Margin and padding reversals for horizontal spacing */
+[dir="rtl"] .mb-3 {
+  margin-bottom: 1rem;
+}
+
+[dir="rtl"] .mt-2 {
+  margin-top: 0.5rem;
+}
+
+/* RTL: Skip link positioning */
+[dir="rtl"] .skip-to-main {
+  left: auto;
+  right: 0;
+  border-radius: 0 0 0 4px;
+}
+
+[dir="rtl"] .skip-to-main:focus {
+  right: 0;
+  left: auto;
+}
+

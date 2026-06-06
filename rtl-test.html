@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RTL Detection Test - Intel</title>
+  
+  <!-- Bootstrap CSS (dynamically switched for RTL support) -->
+  <link id="bootstrap-css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .test-section {
+      margin: 2rem 0;
+      padding: 2rem;
+      border: 2px solid #0f69ff;
+      border-radius: 8px;
+      background: #f0f4f8;
+    }
+    .button-group {
+      margin: 1rem 0;
+    }
+    .test-info {
+      background: #e3f2fd;
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- RTL Language Detection and Application Script -->
+  <script>
+    (function() {
+      'use strict';
+      
+      // Configuration: RTL language codes
+      const RTL_LANGUAGES = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ug', 'ku', 'yi', 'ji', 'iw'];
+      const BOOTSTRAP_LTR = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css';
+      const BOOTSTRAP_RTL = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css';
+      
+      const html = document.documentElement;
+      const bootstrapLink = document.getElementById('bootstrap-css');
+
+      function getLanguageCode(lang) {
+        if (!lang) return '';
+        return lang.trim().toLowerCase().split(/[-_]/)[0];
+      }
+
+      function detectGoogleTranslateLang() {
+        try {
+          const cookieMatch = document.cookie.match(/(?:^|;)\s*googtrans=\/[^\/]+\/([^;]+)/);
+          if (cookieMatch && cookieMatch[1]) {
+            return cookieMatch[1].toLowerCase();
+          }
+        } catch (e) {
+          console.warn('Error detecting Google Translate:', e);
+        }
+        return '';
+      }
+
+      function isRtlLanguage(lang) {
+        const code = getLanguageCode(lang);
+        return RTL_LANGUAGES.includes(code);
+      }
+
+      function applyDirection() {
+        try {
+          const googleLang = detectGoogleTranslateLang();
+          const htmlLang = html.getAttribute('lang') || 'en';
+          const effectiveLang = googleLang || htmlLang;
+          const shouldUseRtl = isRtlLanguage(effectiveLang);
+
+          html.setAttribute('dir', shouldUseRtl ? 'rtl' : 'ltr');
+
+          if (shouldUseRtl) {
+            html.classList.add('rtl-mode');
+            html.classList.remove('ltr-mode');
+          } else {
+            html.classList.add('ltr-mode');
+            html.classList.remove('rtl-mode');
+          }
+
+          if (bootstrapLink) {
+            const targetUrl = shouldUseRtl ? BOOTSTRAP_RTL : BOOTSTRAP_LTR;
+            if (bootstrapLink.href !== targetUrl) {
+              bootstrapLink.href = targetUrl;
+            }
+          }
+          
+          updateTestInfo();
+        } catch (e) {
+          console.error('Error applying RTL direction:', e);
+        }
+      }
+
+      const observer = new MutationObserver(function(mutations) {
+        for (const mutation of mutations) {
+          if (mutation.type === 'attributes' && (mutation.attributeName === 'lang' || mutation.attributeName === 'dir')) {
+            applyDirection();
+            break;
+          }
+        }
+      });
+
+      observer.observe(html, {
+        attributes: true,
+        attributeFilter: ['lang', 'dir']
+      });
+
+      setInterval(applyDirection, 800);
+      applyDirection();
+
+      // Make function available globally for testing
+      window.switchLanguage = function(langCode) {
+        html.setAttribute('lang', langCode);
+        applyDirection();
+      };
+
+      function updateTestInfo() {
+        const currentLang = html.getAttribute('lang');
+        const currentDir = html.getAttribute('dir');
+        const infoEl = document.getElementById('current-state');
+        if (infoEl) {
+          infoEl.textContent = `Current Language: ${currentLang} | Direction: ${currentDir} | Mode: ${currentDir === 'rtl' ? 'RTL' : 'LTR'}`;
+        }
+      }
+
+      window.updateTestInfo = updateTestInfo;
+    })();
+  </script>
+
+  <!-- Test Interface -->
+  <div class="test-section">
+    <h1>🧪 RTL Detection & Layout Test</h1>
+    
+    <div class="test-info">
+      <strong>Current State:</strong>
+      <div id="current-state">Loading...</div>
+    </div>
+
+    <h2>Test Language Switching</h2>
+    <p>Click a button below to change the page language and layout direction:</p>
+
+    <div class="button-group">
+      <button class="btn btn-primary" onclick="window.switchLanguage('en')">English (LTR)</button>
+      <button class="btn btn-secondary" onclick="window.switchLanguage('ar')">العربية (RTL)</button>
+      <button class="btn btn-secondary" onclick="window.switchLanguage('he')">עברית (RTL)</button>
+      <button class="btn btn-secondary" onclick="window.switchLanguage('fa')">فارسی (RTL)</button>
+    </div>
+
+    <h2>Test Results</h2>
+    <div class="test-info">
+      ✅ <strong>Bootstrap CSS Switching:</strong> The page should load bootstrap.rtl.min.css when RTL languages are selected<br>
+      ✅ <strong>Direction Attribute:</strong> The &lt;html dir="ltr/rtl"&gt; attribute should update correctly<br>
+      ✅ <strong>Text Alignment:</strong> Text should right-align for RTL, left-align for LTR<br>
+      ✅ <strong>Element Order:</strong> Elements should reorder for RTL layouts
+    </div>
+
+    <h2>How It Works</h2>
+    <ul>
+      <li>The RTL detection script watches the <code>lang</code> attribute on the &lt;html&gt; element</li>
+      <li>When you click a button, the <code>lang</code> attribute changes</li>
+      <li>The MutationObserver detects this change and calls <code>applyDirection()</code></li>
+      <li>For RTL languages: <code>dir="rtl"</code> is set and Bootstrap RTL CSS is loaded</li>
+      <li>For LTR languages: <code>dir="ltr"</code> is set and Bootstrap LTR CSS is loaded</li>
+      <li>Custom CSS rules in style.css handle additional RTL-specific styling</li>
+    </ul>
+  </div>
+
+  <footer class="bg-dark text-white py-5" style="margin-top: 3rem;">
+    <div class="container">
+      <p class="mb-0">RTL Detection Test Page - Intel Sustainability</p>
+    </div>
+  </footer>
+
+</body>
+</html>

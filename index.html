@@ -1,15 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Intel: Sustainability Through the Ages</title>
+  
+  <!-- Bootstrap CSS (dynamically switched for RTL support) -->
+  <link id="bootstrap-css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- RTL Language Detection and Application Script (temporarily disabled) -->
+  <!--
+  <script>
+    (function() {
+      'use strict';
+      
+      // Configuration: RTL language codes
+      const RTL_LANGUAGES = ['ar', 'he', 'fa', 'ur', 'ps', 'sd', 'ug', 'ku', 'yi', 'ji', 'iw'];
+      const BOOTSTRAP_LTR = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css';
+      const BOOTSTRAP_RTL = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css';
+      
+      const html = document.documentElement;
+      const bootstrapLink = document.getElementById('bootstrap-css');
+
+      function getLanguageCode(lang) {
+        if (!lang) return '';
+        return lang.trim().toLowerCase().split(/[-_]/)[0];
+      }
+
+      function detectGoogleTranslateLang() {
+        try {
+          const cookieMatch = document.cookie.match(/(?:^|;\s*)googtrans=\/[^/]+\/([^;]+)/);
+          if (cookieMatch && cookieMatch[1]) {
+            return cookieMatch[1].toLowerCase();
+          }
+        } catch (e) {
+          console.warn('Error detecting Google Translate:', e);
+        }
+        return '';
+      }
+
+      function isRtlLanguage(lang) {
+        const code = getLanguageCode(lang);
+        return RTL_LANGUAGES.includes(code);
+      }
+
+      function getEffectiveLanguage() {
+        const googleLang = detectGoogleTranslateLang();
+        const htmlLang = html.getAttribute('lang') || document.documentElement.lang || document.body.lang || 'en';
+        return googleLang || htmlLang || 'en';
+      }
+
+      function applyDirection() {
+        try {
+          const effectiveLang = getEffectiveLanguage();
+          const shouldUseRtl = isRtlLanguage(effectiveLang);
+          html.setAttribute('dir', shouldUseRtl ? 'rtl' : 'ltr');
+          if (shouldUseRtl) {
+            html.classList.add('rtl-mode');
+            html.classList.remove('ltr-mode');
+          } else {
+            html.classList.add('ltr-mode');
+            html.classList.remove('rtl-mode');
+          }
+          if (bootstrapLink) {
+            const targetUrl = shouldUseRtl ? BOOTSTRAP_RTL : BOOTSTRAP_LTR;
+            if (bootstrapLink.href !== targetUrl) {
+              bootstrapLink.href = targetUrl;
+            }
+          }
+        } catch (e) {
+          console.error('Error applying RTL direction:', e);
+        }
+      }
+
+      const observer = new MutationObserver(function(mutations) {
+        for (const mutation of mutations) {
+          if (mutation.type === 'attributes' && (mutation.attributeName === 'lang' || mutation.attributeName === 'dir')) {
+            applyDirection();
+            break;
+          }
+        }
+      });
+
+      observer.observe(html, {
+        attributes: true,
+        attributeFilter: ['lang', 'dir']
+      });
+
+      setInterval(applyDirection, 800);
+      applyDirection();
+    })();
+  </script>
+  -->
+
+  <!-- Skip to Main Content Link (for keyboard accessibility) -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
 
   <!-- Header / Hero Section -->
-  <header class="hero">
+  <header class="hero" role="banner">
     <div class="hero-content">
       <!-- Ask Copilot to teach you about `.svg`. 🙂 You'll need to resize the logo with CSS. -->
       <img src="img/intel-header-logo.svg" alt="Intel Logo" />
@@ -37,7 +128,7 @@
         <!-- Card 1: 1968 -->
         <div class="timeline-card">
           <h3>1968 — Intel Founded</h3>
-          <img src="img/1.jpg" alt="Intel timeline 1968" class="card-image" />
+          <img src="img/1.jpg" alt="Intel founder Gordon Moore and Robert Noyce founding Intel Corporation in 1968" class="card-image" />
           <p>
             Robert Noyce and Gordon Moore rename the newly formed company
             NM Electronics to Intel Corporation, laying the foundation for
@@ -48,7 +139,7 @@
         <!-- Card 2: 1971 -->
         <div class="timeline-card">
           <h3>1971 — First Microprocessor</h3>
-          <img src="img/2.jpg" alt="Intel timeline 1971" class="card-image" />
+          <img src="img/2.jpg" alt="Intel 4004 microprocessor - the world's first commercial microprocessor introduced in 1971" class="card-image" />
           <p>
             Intel debuts the 4004, the world's first commercial microprocessor,
             igniting the microprocessor revolution and propelling the future
@@ -59,7 +150,7 @@
         <!-- Card 3: 1978 -->
         <div class="timeline-card">
           <h3>1978 — 8086 Processor</h3>
-          <img src="img/3.jpg" alt="Intel timeline 1978" class="card-image" />
+          <img src="img/3.jpg" alt="Intel 8086 processor chip from 1978 establishing the x86 architecture" class="card-image" />
           <p>
             Launch of the 8086 processor, establishing the x86 architecture
             that drives countless PCs and servers in the modern era.
@@ -69,7 +160,7 @@
         <!-- Card 4: 1985 -->
         <div class="timeline-card">
           <h3>1985 — 386 Processor</h3>
-          <img src="img/4.jpg" alt="Intel timeline 1985" class="card-image" />
+          <img src="img/4.jpg" alt="Intel 386 processor with 32-bit architecture introduced in 1985" class="card-image" />
           <p>
             Intel introduces the 386 processor with 32-bit architecture,
             ushering in a new era of performance and multitasking for
@@ -85,7 +176,7 @@
         <!-- Card 5: 2006 -->
         <div class="timeline-card">
           <h3>2006 — Peak GHG Emissions</h3>
-          <img src="img/5.png" alt="Intel timeline 2006" class="card-image" />
+          <img src="img/5.png" alt="2006 greenhouse gas emissions chart showing Intel's peak GHG emissions" class="card-image" />
           <p>
             This year marks Intel's highest annual greenhouse gas emissions
             for operations. Over subsequent years, Intel invests heavily in
@@ -97,7 +188,7 @@
         <!-- Card 6: 2020 -->
         <div class="timeline-card">
           <h3>2020 — RISE Strategy</h3>
-          <img src="img/6.png" alt="Intel timeline 2020" class="card-image" />
+          <img src="img/6.png" alt="RISE strategy logo and 2030 goals announced by Intel in 2020" class="card-image" />
           <p>
             Intel launches its RISE (Responsible, Inclusive, Sustainable,
             Enabling) strategy and 2030 goals, aiming to drive industry-wide
@@ -108,7 +199,7 @@
         <!-- Card 7: 2022 -->
         <div class="timeline-card">
           <h3>2022 — Net-Zero By 2040</h3>
-          <img src="img/7.jpg" alt="Intel timeline 2022" class="card-image" />
+          <img src="img/7.jpg" alt="Intel's net-zero commitment announcement for 2040 made in 2022" class="card-image" />
           <p>
             Intel announces its commitment to achieve net-zero greenhouse
             gas emissions (Scope 1 and 2) across its global operations
@@ -119,7 +210,7 @@
         <!-- Card 8: 2023 -->
         <div class="timeline-card">
           <h3>2023 — Renewable Electricity</h3>
-          <img src="img/8.png" alt="Intel timeline 2023" class="card-image" />
+          <img src="img/8.png" alt="2023 renewable energy achievement - 99% renewable electricity usage worldwide" class="card-image" />
           <p>
             The company achieves 99% renewable electricity usage worldwide,
             helping to drastically lower carbon emissions and driving progress
@@ -130,7 +221,7 @@
         <!-- Card 9: 2024 -->
         <div class="timeline-card">
           <h3>2024 — Sustainability Summit</h3>
-          <img src="img/9.png" alt="Intel timeline 2024" class="card-image" />
+          <img src="img/9.png" alt="Intel's first Sustainability Summit in 2024 bringing together industry leaders" class="card-image" />
           <p>
             Intel hosts its first Sustainability Summit, uniting suppliers,
             government officials, and industry leaders to collaborate on
@@ -140,5 +231,180 @@
       </div>
     </div>
   </section>
+
+  <!-- New Three-Column Grid Section -->
+  <section class="container py-5">
+    <h2 class="text-center mb-5">Intel's Sustainability Pillars</h2>
+    
+    <div class="row g-4">
+      <!-- Column 1: Innovation -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h3 class="card-title">Innovation</h3>
+            <p class="card-text">
+              Intel drives technological advancement to create more efficient 
+              and sustainable products for the future.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Column 2: Responsibility -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h3 class="card-title">Responsibility</h3>
+            <p class="card-text">
+              We take accountability for our environmental impact and commit 
+              to transparent reporting of our sustainability efforts.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Column 3: Enablement -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h3 class="card-title">Enablement</h3>
+            <p class="card-text">
+              Intel enables partners and communities to achieve their own 
+              sustainability goals through collaboration.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Subscription Form Section -->
+  <section class="bg-light py-5" id="main-content" role="main">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+          <!-- Form Heading -->
+          <h2 class="text-center mb-4">Subscribe to Our Newsletter</h2>
+          <p class="text-center text-muted mb-4">
+            Stay updated on Intel's latest sustainability initiatives and achievements.
+          </p>
+
+          <!-- Newsletter Form -->
+          <form aria-label="Newsletter subscription form">
+            <fieldset>
+              <legend class="visually-hidden">Newsletter Sign-Up Information</legend>
+              
+              <!-- Email Input -->
+              <div class="mb-3">
+                <label for="emailInput" class="form-label">Email Address <span class="text-danger" aria-label="required">*</span></label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="emailInput" 
+                  placeholder="your.email@example.com"
+                  aria-required="true"
+                  aria-describedby="emailHelp"
+                  required
+                />
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email.</small>
+              </div>
+
+              <!-- Name Input -->
+              <div class="mb-3">
+                <label for="nameInput" class="form-label">Full Name</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="nameInput" 
+                  placeholder="Your Name"
+                  aria-describedby="nameHelp"
+                />
+                <small id="nameHelp" class="form-text text-muted">Optional - helps us personalize your emails.</small>
+              </div>
+
+              <!-- Checkbox Agreement -->
+              <div class="mb-3 form-check">
+                <input 
+                  type="checkbox" 
+                  class="form-check-input" 
+                  id="termsCheck"
+                  aria-required="true"
+                  aria-describedby="termsHelp"
+                  required
+                />
+                <label class="form-check-label" for="termsCheck">
+                  I agree to receive emails about Intel's sustainability updates <span class="text-danger" aria-label="required">*</span>
+                </label>
+                <small id="termsHelp" class="form-text text-muted d-block mt-2">
+                  By checking this box, you consent to receive emails from Intel.
+                </small>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary w-100" aria-label="Subscribe to Intel's sustainability newsletter">Subscribe Now</button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="bg-dark text-white py-5">
+    <div class="container">
+      <!-- Footer Content Row -->
+      <div class="row mb-4">
+        <!-- About Column -->
+        <div class="col-12 col-md-4 mb-4 mb-md-0">
+          <h5>About Intel</h5>
+          <p class="small">
+            Intel is committed to sustainability through innovation and 
+            responsible manufacturing practices.
+          </p>
+        </div>
+
+        <!-- Quick Links Column -->
+        <div class="col-12 col-md-4 mb-4 mb-md-0">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled small">
+            <li><a href="#" class="footer-link">About Us</a></li>
+            <li><a href="#" class="footer-link">Careers</a></li>
+            <li><a href="#" class="footer-link">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal Links Column -->
+        <div class="col-12 col-md-4">
+          <h5>Legal</h5>
+          <ul class="list-unstyled small">
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Use</a></li>
+            <li><a href="#" class="footer-link">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <hr class="bg-white-50" />
+
+      <!-- Copyright Row -->
+      <div class="row align-items-center">
+        <div class="col-12 col-md-6">
+          <p class="small mb-0">
+            &copy; 2024 Intel Corporation. All rights reserved.
+          </p>
+        </div>
+        <div class="col-12 col-md-6 text-end">
+          <p class="small mb-0">
+            Follow us: 
+            <a href="#" class="footer-link">LinkedIn</a> | 
+            <a href="#" class="footer-link">Twitter</a> | 
+            <a href="#" class="footer-link">Facebook</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
